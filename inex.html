@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Hub</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <div class="overlay"></div>
+
+    <div class="content">
+        <div id="quote-container" class="quote-container">
+            <p id="quote-text"></p>
+            <p id="quote-author"></p>
+        </div>
+
+        <div class="buttons">
+            <button class="button" data-info="faq">Faq</button>
+            <button class="button" data-info="specs">Specs</button>
+            <button class="button" data-info="kontakt">contact</button>
+        </div>
+
+        <div id="info-box" class="info-box">
+            <div id="faq" class="info-content">
+                <h2>FAQ</h2>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What are your interests?</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>I am interested in programming, music, computer graphics and computer games.</p>
+                        <p>Mostly i play Rocket league, and i think thats it for now...</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How long have you been Coding?</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>I've been programming for 3 years, mostly in languages like JavaScript, Python and C#, sometimes I play around with html out of boredom.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What are your plans for the future?</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>I honestly don't have any maybe it's stupid but well.... I don't believe in my future xD</p>
+                    </div>
+                </div>
+            </div>
+            <div id="specs" class="info-content">
+                <h2>Specs</h2>
+                <div class="spec-item">
+                    <div class="spec-label">GPU</div>
+                    <div class="spec-value">RTX 4060</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">CPU</div>
+                    <div class="spec-value">Intel Core i5 12400F</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">RAM</div>
+                    <div class="spec-value">32 GB</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Motherboard</div>
+                    <div class="spec-value">PRO B760-P</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Cooling</div>
+                    <div class="spec-value">ML240Illusion</div>
+                </div>
+            </div>
+            <div id="kontakt" class="info-content">
+                <h2>Kontakt</h2>
+                <div class="contact-item">
+                    <div class="contact-label">Instagram</div>
+                    <div class="contact-value">
+                        <a href="https://www.instagram.com/arcaniusz" target="_blank">Arcan</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Discord</div>
+                    <div class="contact-value">
+                        <a href="https://discord.com/users/683400625190469641" target="_blank">Arcan</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">E-mail</div>
+                    <div class="contact-value">
+                        <a href="mailto:Arcaniusz123@gmail.com">Send Me A Message</a>
+                    </div>
+                </div>
+            </div>
+            <button id="close-button" class="close-button">Close</button>
+        </div>
+
+        <div class="music-player">
+            <h3>Music Time!</h3>
+            <audio id="audio" autoplay>
+                <source src="assets/music.mp3" type="audio/mpeg">
+                Oppai Oppai
+            </audio>
+            <div class="controls">
+                <button id="play-btn">
+                    <img src="assets/play.png" alt="Play">
+                </button>
+                <button id="stop-btn">
+                    <img src="assets/stop.png" alt="Stop">
+                </button>
+                <button id="restart-btn">
+                    <img src="assets/restart.png" alt="Restart">
+                </button>
+            </div>
+        </div>
+            </div>
+            <div class="progress-container">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="info-box" class="info-box">
+        <p id="info-content">Oppai Oppai</p>
+        <button id="close-button" class="close-button">Close</button>
+    </div>
+
+    <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('quotes.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Błąd ładowania pliku JSON');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                const randomQuote = data[Math.floor(Math.random() * data.length)];
+                const quoteText = document.getElementById('quote-text');
+                const quoteAuthor = document.getElementById('quote-author');
+
+                quoteText.textContent = `"${randomQuote.quote}"`;
+                quoteAuthor.textContent = `– ${randomQuote.author}`;
+            })
+            .catch(error => {
+                console.error('Błąd ładowania cytatów:', error);
+                const quoteText = document.getElementById('quote-text');
+                const quoteAuthor = document.getElementById('quote-author');
+                quoteText.textContent = 'Arcan Oppai';
+                quoteAuthor.textContent = '';
+            });
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const faqQuestions = document.querySelectorAll('.faq-question');
+
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = question.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const body = document.querySelector('body');
+    const videoElement = document.createElement('video');
+
+    videoElement.src = 'assets/video.mp4'; 
+    videoElement.autoplay = true;
+    videoElement.muted = true;
+    videoElement.loop = true;
+
+    videoElement.style.position = 'fixed';
+    videoElement.style.top = '0';
+    videoElement.style.left = '0';
+    videoElement.style.width = '100%';
+    videoElement.style.height = '100%';
+    videoElement.style.objectFit = 'cover';
+    videoElement.style.zIndex = '-1';
+    videoElement.style.filter = 'blur(12px) brightness(0.7)';
+    videoElement.style.pointerEvents = 'none';
+
+    body.appendChild(videoElement);
+
+
+    videoElement.addEventListener('loadedmetadata', () => {
+        videoElement.currentTime = 1;
+    });
+});
+
+document.querySelectorAll('.button').forEach(button => {
+    button.addEventListener('click', () => {
+        const section = button.getAttribute('data-info');
+        const infoBox = document.getElementById('info-box');
+        const infoContent = document.getElementById(section);
+
+        document.querySelectorAll('.info-content').forEach(content => {
+            content.classList.remove('active');
+        });
+
+        infoContent.classList.add('active');
+        infoBox.classList.add('active');
+    });
+});
+
+document.getElementById('close-button').addEventListener('click', () => {
+    const infoBox = document.getElementById('info-box');
+    infoBox.classList.remove('active');
+
+    document.querySelectorAll('.info-content').forEach(content => {
+        content.classList.remove('active');
+    });
+});
+
+            const audioElement = document.getElementById('audio');
+        
+        const playButton = document.getElementById('play-btn');
+        playButton.addEventListener('click', function() {
+            if (audioElement.paused) {
+                audioElement.play();
+            }
+        });
+
+        const stopButton = document.getElementById('stop-btn');
+        stopButton.addEventListener('click', function() {
+            audioElement.pause();
+            audioElement.currentTime = 0;
+        });
+
+        const restartButton = document.getElementById('restart-btn');
+        restartButton.addEventListener('click', function() {
+            audioElement.currentTime = 0;
+            audioElement.play();
+        });
+    </script>
+</body>
+</html>
