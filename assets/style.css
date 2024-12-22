@@ -30,7 +30,6 @@ body, html {
     color: white;
   }
   
-  /* Animacja usuwania intro */
   #intro.animate-out {
     transform: translateY(-100%);
     opacity: 0;
