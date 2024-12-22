@@ -7,8 +7,12 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-    <div class="overlay"></div>
 
+    <div id="intro">
+        <h1 id="welcome-text"></h1>
+      </div>
+
+    <div class="overlay"></div>
     <div class="content">
         <div id="quote-container" class="quote-container">
             <p id="quote-text"></p>
@@ -156,6 +160,34 @@
     </div>
 
     <script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const intro = document.getElementById("intro");
+        const welcomeText = document.getElementById("welcome-text");
+
+        const text = "Welcome";
+        let index = 0;
+
+        const typingEffect = setInterval(() => {
+            if (index < text.length) {
+            welcomeText.textContent += text[index];
+            index++;
+            } else {
+            clearInterval(typingEffect);
+
+            setTimeout(() => {
+                intro.classList.add("animate-out");
+            }, 500);
+            }
+        }, 200);
+
+        intro.addEventListener("transitionend", () => {
+            intro.style.display = "none";
+            document.body.style.overflow = "auto";
+        });
+        });
+
+
 
     document.addEventListener('DOMContentLoaded', function() {
         fetch('quotes.json')
